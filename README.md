@@ -1,2 +1,2 @@
-# tracking via colorization
+# Tracking via Colorization
 https://arxiv.org/abs/1806.09594
