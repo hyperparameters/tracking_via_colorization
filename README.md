@@ -1,6 +1,6 @@
 # Tracking via Colorization
 
-![Sample Tracking](images/image6.gif) ![Sample Tracking](images/image10.gif)![Sample Tracking](images/image12.gif)![Sample Tracking](images/image14.gif)
+![Sample Tracking](images/image10.gif)![Sample Tracking](images/image12.gif)![Sample Tracking](images/image14.gif)
 
 To understand the concepts read this blog.
 
@@ -48,6 +48,8 @@ export WANDB_KEY= <your api key>
 ### TODO
 >You can start training your model with this code but it is still in WIP phase
 
+- [ ] Add requirements.txt
 - [ ] Add testing set loss during training
 - [ ] Add more model metrics 
 - [ ] Create tracking inference code  
+- [ ] Create image up-sampling logic for precise mask prediction
