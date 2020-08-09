@@ -29,42 +29,6 @@ class Block3D(nn.Module):
         return x
 
 
-class Network3D(nn.Module):
-    def __init__(self):
-        super(Network3D, self).__init__()
-        self._logger = get_logger("Network3D")
-        config = [(1, 1, 1), (1, 2, 2), (1, 4, 4), (1, 8, 8), (1, 16, 16)]
-        self.block = Block3D
-
-        self.block1 = self._make_layer(config[0], config[0])
-        self.block2 = self._make_layer(config[1], config[1])
-        self.block3 = self._make_layer(config[2], config[2])
-        self.block4 = self._make_layer(config[3], config[3])
-        self.block5 = self._make_layer(config[4], config[4])
-
-        self.conv1 = nn.Conv3d(256, 64, kernel_size=1, stride=1, padding=0)
-        self._logger.info(f"Colorization net Initialized with config {config}")
-
-    def _make_layer(self, padding, dilation):
-        return self.block(padding, dilation)
-
-    def forward(self, input):
-        features = input.unsqueeze(2)
-        out = self.block1(features)
-        self._logger.debug(f"shape after block1 {out.shape}")
-        out = self.block2(out)
-        self._logger.debug(f"shape after block2 {out.shape}")
-        out = self.block3(out)
-        self._logger.debug(f"shape after block3 {out.shape}")
-        out = self.block4(out)
-        self._logger.debug(f"shape after block4 {out.shape}")
-        out = self.block5(out)
-        self._logger.debug(f"shape after block5 {out.shape}")
-        out = self.conv1(out)
-        out = torch.squeeze(out)
-        return out
-
-
 class Network3Dv2(nn.Module):
     def __init__(self):
         super(Network3Dv2, self).__init__()
@@ -107,6 +71,40 @@ class Network3Dv2(nn.Module):
         self._logger.debug(f"output shape after permute and reshape {out.shape}")
         return out
 
+class Network3D(nn.Module):
+    def __init__(self):
+        super(Network3D, self).__init__()
+        self._logger = get_logger("Network3D")
+        config = [(1, 1, 1), (1, 2, 2), (1, 4, 4), (1, 8, 8), (1, 16, 16)]
+        self.block = Block3D
+
+        self.block1 = self._make_layer(config[0], config[0])
+        self.block2 = self._make_layer(config[1], config[1])
+        self.block3 = self._make_layer(config[2], config[2])
+        self.block4 = self._make_layer(config[3], config[3])
+        self.block5 = self._make_layer(config[4], config[4])
+
+        self.conv1 = nn.Conv3d(256, 64, kernel_size=1, stride=1, padding=0)
+        self._logger.info(f"Colorization net Initialized with config {config}")
+
+    def _make_layer(self, padding, dilation):
+        return self.block(padding, dilation)
+
+    def forward(self, input):
+        features = input.unsqueeze(2)
+        out = self.block1(features)
+        self._logger.debug(f"shape after block1 {out.shape}")
+        out = self.block2(out)
+        self._logger.debug(f"shape after block2 {out.shape}")
+        out = self.block3(out)
+        self._logger.debug(f"shape after block3 {out.shape}")
+        out = self.block4(out)
+        self._logger.debug(f"shape after block4 {out.shape}")
+        out = self.block5(out)
+        self._logger.debug(f"shape after block5 {out.shape}")
+        out = self.conv1(out)
+        out = torch.squeeze(out)
+        return out
 
 class Colorization(nn.Module):
     def __init__(self, backbone_networks, head_network):

@@ -30,7 +30,7 @@ class Config:
     SAVE_EPOCH = 10
     VISUALIZATION_EPOCH = 5
     VISUALIZATION_COUNT = 3
-    MODEL_LOGGING = "/home/jovyan/dataset/model_logging"
+    MODEL_LOGGING = "./logs/model_logging"
     TEST_EPOCH = 50
 
     #PREPROCESSING
@@ -40,9 +40,9 @@ class Config:
     # DATA CONFIG (can set different dataset for training/testing/color_quantization
     class TrainData:
         # DATA CONFIG
-        BASE_DATA_ROOT = "/home/jovyan/dataset/tracking/"
-        CATEGORIES = ["Shopping mall"]
-        DATASET = "youtube"
+        BASE_DATA_ROOT = "./dataset/tracking/"
+        CATEGORIES = None
+        DATASET = "davis"
         DATA_ROOT = os.path.join(BASE_DATA_ROOT, DATASET, "videos/")
         BATCH_SIZE = 32 # 32 x 4
         SHUFFLE = True
@@ -54,7 +54,7 @@ class Config:
 
     class TestData:
         # DATA CONFIG
-        BASE_DATA_ROOT = "/home/jovyan/dataset/tracking/"
+        BASE_DATA_ROOT = "./dataset/tracking/"
         DATASET = "davis"
         CATEGORIES = None
         DATA_ROOT = os.path.join(BASE_DATA_ROOT, DATASET, "test_2019/JPEGImages/480p")
@@ -68,7 +68,7 @@ class Config:
 
     class KMeansData:
         # DATA CONFIG
-        BASE_DATA_ROOT = "/home/jovyan/dataset/tracking/"
+        BASE_DATA_ROOT = "./dataset/tracking/"
         DATASET = "davis"
         CATEGORIES = None
         DATA_ROOT = os.path.join(BASE_DATA_ROOT, DATASET, "training")
@@ -81,7 +81,7 @@ class Config:
         REFERENCE_FRAMES = 0  # num of reference for colorization task
 
     # COLORIZATION
-    KMEANS_FILE = "/home/jovyan/clusters2.p"
+    KMEANS_FILE = None
     CLUSTERS = 16
     CHANNELS = 'lab'
     QUANTIZE_CHANNELS = (1,2)
@@ -94,7 +94,7 @@ class Config:
     LOGGER = logging.getLogger(f"{PROJECT_NAME}_{EXPERIMENT_NAME}")
 
     WANDB = False
-    WANDB_LOG_ROOT = "/home/jovyan/dataset/model_logs/"
+    WANDB_LOG_ROOT = "./logs/model"
     __WANDB_KEY = os.getenv("WANDB_KEY")
 
     def __init__(self):
